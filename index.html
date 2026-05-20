@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexandria University — Mechatronics Submission Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003366;
+      --primary-dark: #001f3f;
+      --primary-light: #e6f0ff;
+      --accent: #c5a028;
+      --accent-light: #fdf6e3;
+      --success: #059669;
+      --success-light: #d1fae5;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --error: #dc2626;
+      --error-light: #fee2e2;
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --radius: 16px;
+      --shadow-lg: 0 20px 40px -10px rgba(0, 51, 102, 0.15), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #e6f0ff 0%, #f0f4f8 50%, #fdf6e3 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-4px); }
+      40%, 80% { transform: translateX(4px); }
+    }
+
+    @keyframes countUp {
+      from { transform: scale(1.4); opacity: 0.5; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); max-height: 0; }
+      to { opacity: 1; transform: translateY(0); max-height: 500px; }
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 40px 36px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(197, 160, 40, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 32px;
+      background: var(--surface);
+      clip-path: ellipse(60% 100% at 50% 100%);
+    }
+
+    .university-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header .subtitle {
+      font-size: 0.82rem;
+      opacity: 0.85;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header .course-badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 16px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-body, .success-body {
+      padding: 32px 36px;
+    }
+
+    .progress-section {
+      padding: 0 36px;
+      margin-top: -8px;
+      margin-bottom: 8px;
+    }
+
+    .progress-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 0 4px;
+    }
+
+    .progress-steps::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      right: 24px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .progress-steps::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .step.active .step-circle {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.15);
+    }
+
+    .step.done .step-circle {
+      background: var(--success);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+
+    .step.active .step-label,
+    .step.done .step-label {
+      color: var(--text);
+    }
+
+    .guidelines-section {
+      margin-bottom: 20px;
+    }
+
+    .guidelines-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--accent-light);
+      border: 1.5px solid rgba(197, 160, 40, 0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .guidelines-toggle:hover {
+      background: rgba(197, 160, 40, 0.15);
+      border-color: var(--accent);
+    }
+
+    .guidelines-toggle .toggle-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .guidelines-toggle .toggle-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .guidelines-toggle .toggle-text h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1px;
+    }
+
+    .guidelines-toggle .toggle-text p {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .guidelines-toggle .chevron {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: transform 0.3s;
+    }
+
+    .guidelines-toggle.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .guidelines-content {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .guidelines-content.show {
+      max-height: 600px;
+      opacity: 1;
+      margin-top: 12px;
+    }
+
+    .guideline-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 500px) {
+      .guideline-cards { grid-template-columns: 1fr; }
+    }
+
+    .guideline-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+
+    .guideline-card:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .guideline-card .g-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .guideline-card .g-icon.green { background: #d1fae5; }
+    .guideline-card .g-icon.red { background: #fee2e2; }
+    .guideline-card .g-icon.blue { background: #dbeafe; }
+    .guideline-card .g-icon.yellow { background: #fef3c7; }
+
+    .guideline-card .g-text h5 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .guideline-card .g-text p {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .upload-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .upload-header label {
+      margin-bottom: 0;
+    }
+
+    .image-counter {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .image-counter.incomplete {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .image-counter.complete {
+      background: var(--success-light);
+      color: var(--success);
+      animation: pulse 0.5s ease;
+    }
+
+    .image-counter.over {
+      background: var(--error-light);
+      color: var(--error);
+    }
+
+    .counter-num {
+      font-size: 1rem;
+      animation: countUp 0.3s ease;
+    }
+
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      transition: all 0.25s;
+      cursor: pointer;
+      background: #fafbff;
+      position: relative;
+    }
+
+    .upload-zone:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .upload-zone.has-files {
+      border-style: solid;
+      border-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .upload-zone.complete {
+      border-color: var(--success);
+      background: var(--success-light);
+      animation: pulse 0.4s ease;
+    }
+
+    .upload-zone.over-limit {
+      border-color: var(--error);
+      background: var(--error-light);
+    }
+
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .upload-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      transition: all 0.3s;
+    }
+
+    .upload-zone.has-files .upload-icon {
+      background: var(--success);
+    }
+
+    .upload-zone h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .upload-zone p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .preview-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .preview-item {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      position: relative;
+      background: white;
+      transition: all 0.2s;
+    }
+
+    .preview-item:hover {
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .preview-item .remove {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 20px;
+      height: 20px;
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .preview-item:hover .remove { opacity: 1; }
+
+    .preview-item .img-number {
+      position: absolute;
+      bottom: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: rgba(0, 51, 102, 0.85);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-slot {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: #fafbff;
+      transition: all 0.2s;
+    }
+
+    .empty-slot:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .form-body, .success-body { padding: 24px 20px; }
+      .header { padding: 28px 20px 36px; }
+      .progress-section { padding: 0 20px; }
+      .preview-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .field-group { margin-bottom: 18px; }
+
+    label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+    }
+
+    input.error, select.error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      animation: shake 0.4s ease;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      margin-top: 24px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: inherit;
+      letter-spacing: 0.02em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s;
+    }
+
+    .submit-btn:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 51, 102, 0.35);
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .submit-btn.ready {
+      animation: pulse 0.6s ease;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .success-body {
+      text-align: center;
+      display: none;
+    }
+
+    .success-body.active {
+      display: block;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--success);
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      animation: scaleIn 0.5s ease-out;
+    }
+
+    .success-body h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .success-body p {
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .tracker-box {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 32px;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    .tracker-box .label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tracker-box .number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.04em;
+      font-family: "Courier New", monospace;
+    }
+
+    .new-btn {
+      padding: 14px 32px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .new-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(0, 51, 102, 0.25);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--primary-dark);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      opacity: 0;
+      transition: all 0.35s ease;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      font-weight: 500;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hidden { display: none !important; }
+
+    #videoOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 31, 63, 0.92);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.4s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    #videoOverlay .video-wrapper {
+      position: relative;
+      width: 90%;
+      max-width: 520px;
+    }
+
+    #videoOverlay .video-label {
+      text-align: center;
+      color: white;
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .video-container {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    #videoOverlay iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+    }
+
+    .skip-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px auto 0;
+      padding: 14px 40px;
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: inherit;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(4px);
+    }
+
+    .skip-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .skip-btn:active {
+      transform: translateY(0);
+    }
+
+    .skip-btn .skip-icon {
+      font-size: 1.1rem;
+    }
+
+    .footer-note {
+      text-align: center;
+      padding: 14px;
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="videoOverlay">
+    <div class="video-wrapper">
+      <div class="video-label">🎬 Welcome Video — Mechatronics Course</div>
+      <div class="video-container">
+        <iframe 
+          id="welcomeVideo"
+          src="https://www.youtube.com/embed/Dx9ukJL6QKQ?autoplay=1&mute=1&loop=1&playlist=Dx9ukJL6QKQ&controls=0&rel=0&modestbranding=1"
+          title="Mechatronics Welcome Video" 
+          frameborder="0" 
+          allow="autoplay; encrypted-media; fullscreen" 
+          allowfullscreen>
+        </iframe>
+      </div>
+      <button class="skip-btn" onclick="closeVideo()">
+        <span class="skip-icon">⏭</span> Skip to Form
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="university-badge">🏛️</div>
+      <h1>Alexandria University</h1>
+      <div class="subtitle">Faculty of Engineering — Electrical Power Department</div>
+      <div class="course-badge">⚙️ Mechatronics Course</div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-steps" id="progressSteps">
+        <div class="step active" id="step1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Info</div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Photos</div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Submit</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="formView" class="form-body">
+
+      <div class="guidelines-section">
+        <button class="guidelines-toggle" id="guidelinesToggle" onclick="toggleGuidelines()">
+          <div class="toggle-icon">📸</div>
+          <div class="toggle-text">
+            <h4>Photo Requirements — Must Read</h4>
+            <p>Click to view guidelines before uploading</p>
+          </div>
+          <div class="chevron">▼</div>
+        </button>
+        <div class="guidelines-content" id="guidelinesContent">
+          <div class="guideline-cards">
+            <div class="guideline-card">
+              <div class="g-icon green">✅</div>
+              <div class="g-text">
+                <h5>Face Must Be Clear</h5>
+                <p>Your face should be clearly visible and centered in the photo</p>
+              </div>
+            </div>
+            <div class="guideline-card">
+              <div class="g-icon green">💡</div>
+              <div class="g-text">
+                <h5>Good Lighting</h5>
+                <p>Ensure proper lighting — no shadows or dark areas on the document</p>
+              </div>
+            </div>
+            <div class="guideline-card">
+              <div class="g-icon blue">📄</div>
+              <div class="g-text">
+                <h5>Document Fully Visible</h5>
+                <p>All corners and edges of the document must be visible in the frame</p>
+              </div>
+            </div>
+            <div class="guideline-card">
+              <div class="g-icon yellow">📐</div>
+              <div class="g-text">
+                <h5>Flat & Straight</h5>
+                <p>Place the document on a flat surface — avoid angles or tilted shots</p>
+              </div>
+            </div>
+            <div class="guideline-card">
+              <div class="g-icon red">❌</div>
+              <div class="g-text">
+                <h5>No Blurry Photos</h5>
+                <p>Blurry or out-of-focus images will be rejected — hold steady</p>
+              </div>
+            </div>
+            <div class="guideline-card">
+              <div class="g-icon red">🚫</div>
+              <div class="g-text">
+                <h5>No Glare / Reflection</h5>
+                <p>Avoid flash glare on laminated or glossy documents</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Full Name</label>
+          <input type="text" id="studentName" placeholder="e.g., Ahmed Mohamed" oninput="updateProgress()">
+        </div>
+        <div class="field-group">
+          <label>Student ID</label>
+          <input type="text" id="studentId" placeholder="e.g., 19010455" oninput="updateProgress()">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Department</label>
+          <select id="department" onchange="updateProgress()">
+            <option value="Electrical Power" selected>Electrical Power</option>
+            <option value="Computer & Control">Computer & Control</option>
+            <option value="Communications">Communications</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Civil">Civil</option>
+            <option value="Architecture">Architecture</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Academic Year</label>
+          <select id="year" onchange="updateProgress()">
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year" selected>Fourth Year</option>
+            <option value="Fifth Year">Fifth Year</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="upload-header">
+          <label>Required Documents</label>
+          <div class="image-counter incomplete" id="imageCounter">
+            <span class="counter-num" id="counterNum">0</span> / 7
+          </div>
+        </div>
+
+        <div class="upload-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="image/*" multiple>
+          <div class="upload-icon" id="uploadIcon">📄</div>
+          <h3 id="uploadTitle">Click or drag images here</h3>
+          <p id="uploadDesc">JPEG, PNG — Max 5MB per image</p>
+        </div>
+
+        <div class="preview-grid" id="previewGrid"></div>
+      </div>
+
+      <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>
+        <div class="spinner" id="spinner"></div>
+        <span id="btnText">Submit Documents</span>
+      </button>
+    </div>
+
+    <div id="successView" class="success-body">
+      <div class="success-icon">✓</div>
+      <h2>Submitted Successfully</h2>
+      <p>Your documents have been uploaded and recorded. Please save your tracking number to follow up on your submission status.</p>
+      <div class="tracker-box">
+        <div class="label">Tracking Number</div>
+        <div class="number" id="trackerNumber">---</div>
+      </div>
+      <br><br>
+      <button class="new-btn" onclick="resetForm()">Submit New Request</button>
+    </div>
+
+    <div class="footer-note">
+      Alexandria University — Faculty of Engineering — Mechatronics Course Portal &copy; 2026
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <span id="toastIcon">⚠️</span>
+    <span id="toastMsg">Message</span>
+  </div>
+
+  <script>
+    const MAX_SIZE = 1200;
+    const QUALITY = 0.7;
+    const REQUIRED_IMAGES = 7;
+    var compressedImages = [];
+
+    var dropZone = document.getElementById('dropZone');
+    var fileInput = document.getElementById('fileInput');
+    var previewGrid = document.getElementById('previewGrid');
+    var submitBtn = document.getElementById('submitBtn');
+    var btnText = document.getElementById('btnText');
+    var spinner = document.getElementById('spinner');
+
+    function closeVideo() {
+      var overlay = document.getElementById('videoOverlay');
+      var iframe = document.getElementById('welcomeVideo');
+      if (iframe) iframe.src = '';
+      overlay.style.opacity = '0';
+      overlay.style.transition = 'opacity 0.3s ease';
+      setTimeout(function() {
+        overlay.remove();
+      }, 300);
+    }
+
+    setTimeout(function() {
+      var overlay = document.getElementById('videoOverlay');
+      if (overlay) closeVideo();
+    }, 30000);
+
+    function toggleGuidelines() {
+      var toggle = document.getElementById('guidelinesToggle');
+      var content = document.getElementById('guidelinesContent');
+      toggle.classList.toggle('open');
+      content.classList.toggle('show');
+    }
+
+    function updateProgress() {
+      var name = document.getElementById('studentName').value.trim();
+      var id = document.getElementById('studentId').value.trim();
+      var step1 = document.getElementById('step1');
+      var step2 = document.getElementById('step2');
+      var step3 = document.getElementById('step3');
+
+      if (name && id) {
+        step1.classList.add('done');
+        step1.classList.remove('active');
+        step2.classList.add('active');
+      } else {
+        step1.classList.remove('done');
+        step1.classList.add('active');
+        step2.classList.remove('active', 'done');
+      }
+
+      if (compressedImages.length === REQUIRED_IMAGES) {
+        step2.classList.add('done');
+        step2.classList.remove('active');
+        step3.classList.add('active');
+      } else {
+        step2.classList.remove('done');
+        if (name && id) {
+          step2.classList.add('active');
+        }
+        step3.classList.remove('active', 'done');
+      }
+
+      if (name && id && compressedImages.length === REQUIRED_IMAGES) {
+        step3.classList.add('done');
+        submitBtn.disabled = false;
+        submitBtn.classList.add('ready');
+      } else {
+        step3.classList.remove('done');
+        submitBtn.disabled = true;
+        submitBtn.classList.remove('ready');
+      }
+
+      var totalSteps = 3;
+      var completedSteps = 0;
+      if (name && id) completedSteps++;
+      if (compressedImages.length === REQUIRED_IMAGES) completedSteps++;
+      if (name && id && compressedImages.length === REQUIRED_IMAGES) completedSteps++;
+      var width = completedSteps === 0 ? 0 : ((completedSteps) / (totalSteps - 1)) * 100;
+      
+      var style = document.querySelector('.progress-steps');
+      if (style) {
+        style.style.setProperty('--progress-width', width + '%');
+      }
+    }
+
+    function updateImageCounter() {
+      var counter = document.getElementById('imageCounter');
+      var num = document.getElementById('counterNum');
+      num.textContent = compressedImages.length;
+      num.style.animation = 'none';
+      num.offsetHeight;
+      num.style.animation = 'countUp 0.3s ease';
+
+      counter.classList.remove('incomplete', 'complete', 'over');
+      if (compressedImages.length < REQUIRED_IMAGES) {
+        counter.classList.add('incomplete');
+      } else if (compressedImages.length === REQUIRED_IMAGES) {
+        counter.classList.add('complete');
+      } else {
+        counter.classList.add('over');
+      }
+    }
+
+    function updateUploadZone() {
+      var h3 = document.getElementById('uploadTitle');
+      var p = document.getElementById('uploadDesc');
+      var icon = document.getElementById('uploadIcon');
+      dropZone.classList.remove('has-files', 'complete', 'over-limit');
+
+      if (compressedImages.length === 0) {
+        h3.textContent = 'Click or drag images here';
+        p.textContent = 'JPEG, PNG — Max 5MB per image';
+        icon.textContent = '📄';
+      } else if (compressedImages.length < REQUIRED_IMAGES) {
+        dropZone.classList.add('has-files');
+        h3.textContent = (REQUIRED_IMAGES - compressedImages.length) + ' more image(s) needed';
+        p.textContent = 'Click to add more';
+        icon.textContent = '📎';
+      } else if (compressedImages.length === REQUIRED_IMAGES) {
+        dropZone.classList.add('complete');
+        h3.textContent = '✅ All 7 images uploaded!';
+        p.textContent = 'You can now submit your documents';
+        icon.textContent = '✅';
+      } else {
+        dropZone.classList.add('over-limit');
+        h3.textContent = '⚠️ Too many images!';
+        p.textContent = 'Remove ' + (compressedImages.length - REQUIRED_IMAGES) + ' image(s)';
+        icon.textContent = '⚠️';
+      }
+    }
+
+    function renderPreviews() {
+      previewGrid.innerHTML = '';
+
+      compressedImages.forEach(function(img, idx) {
+        var div = document.createElement('div');
+        div.className = 'preview-item';
+        div.innerHTML = '<img src="' + img.dataUrl + '" alt="Photo ' + (idx + 1) + '">' +
+          '<button class="remove" onclick="removeImage(' + idx + ')" title="Remove">×</button>' +
+          '<div class="img-number">' + (idx + 1) + '</div>';
+        previewGrid.appendChild(div);
+      });
+
+      var remaining = REQUIRED_IMAGES - compressedImages.length;
+      if (remaining > 0) {
+        for (var i = 0; i < remaining; i++) {
+          var slot = document.createElement('div');
+          slot.className = 'empty-slot';
+          slot.textContent = (compressedImages.length + i + 1);
+          slot.onclick = function() { fileInput.click(); };
+          previewGrid.appendChild(slot);
+        }
+      }
+    }
+
+    fileInput.addEventListener('change', handleFiles);
+
+    dropZone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      dropZone.style.borderColor = 'var(--primary)';
+      dropZone.style.background = 'var(--primary-light)';
+    });
+
+    dropZone.addEventListener('dragleave', function() {
+      dropZone.style.borderColor = '';
+      dropZone.style.background = '';
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dropZone.style.borderColor = '';
+      dropZone.style.background = '';
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        handleFiles({ target: fileInput });
+      }
+    });
+
+    function compressImage(file, callback) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var w = img.width, h = img.height;
+          if (w > h) { if (w > MAX_SIZE) { h *= MAX_SIZE / w; w = MAX_SIZE; } }
+          else { if (h > MAX_SIZE) { w *= MAX_SIZE / h; h = MAX_SIZE; } }
+          var canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL('image/jpeg', QUALITY));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleFiles(e) {
+      var files = Array.from(e.target.files);
+      if (!files.length) return;
+
+      if (compressedImages.length >= REQUIRED_IMAGES) {
+        showToast('⚠️', 'Maximum 7 images allowed — remove some first');
+        fileInput.value = '';
+        return;
+      }
+
+      var remaining = REQUIRED_IMAGES - compressedImages.length;
+      var validFiles = files.filter(function(f) { return f.type.startsWith('image/'); });
+
+      if (validFiles.length > remaining) {
+        showToast('⚠️', 'Only ' + remaining + ' more image(s) needed — you selected ' + validFiles.length);
+        validFiles = validFiles.slice(0, remaining);
+      }
+
+      showToast('⏳', 'Compressing images...');
+      var processed = 0;
+
+      validFiles.forEach(function(file) {
+        if (file.size > 5 * 1024 * 1024) {
+          showToast('⚠️', file.name + ' exceeds 5MB limit');
+          processed++;
+          if (processed >= validFiles.length) {
+            renderPreviews();
+            updateUploadZone();
+            updateImageCounter();
+            updateProgress();
+            if (compressedImages.length > 0) {
+              showToast('✅', compressedImages.length + ' / 7 images ready');
+            }
+          }
+          return;
+        }
+
+        compressImage(file, function(dataUrl) {
+          compressedImages.push({ dataUrl: dataUrl, name: file.name });
+          processed++;
+          if (processed >= validFiles.length) {
+            renderPreviews();
+            updateUploadZone();
+            updateImageCounter();
+            updateProgress();
+            if (compressedImages.length === REQUIRED_IMAGES) {
+              showToast('✅', 'All 7 images ready — you can submit now!');
+            } else {
+              showToast('✅', compressedImages.length + ' / 7 images ready');
+            }
+          }
+        });
+      });
+
+      fileInput.value = '';
+    }
+
+    function removeImage(idx) {
+      compressedImages.splice(idx, 1);
+      renderPreviews();
+      updateUploadZone();
+      updateImageCounter();
+      updateProgress();
+      showToast('🗑️', 'Image removed — ' + compressedImages.length + ' / 7 remaining');
+    }
+
+    function showToast(icon, msg) {
+      var toast = document.getElementById('toast');
+      document.getElementById('toastIcon').textContent = icon;
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      spinner.style.display = isLoading ? 'block' : 'none';
+      btnText.textContent = isLoading ? 'Submitting...' : 'Submit Documents';
+    }
+
+    function submitForm() {
+      var name = document.getElementById('studentName').value.trim();
+      var id = document.getElementById('studentId').value.trim();
+      var dept = document.getElementById('department').value;
+      var year = document.getElementById('year').value;
+
+      var hasError = false;
+
+      if (!name) {
+        document.getElementById('studentName').classList.add('error');
+        hasError = true;
+      } else {
+        document.getElementById('studentName').classList.remove('error');
+      }
+
+      if (!id) {
+        document.getElementById('studentId').classList.add('error');
+        hasError = true;
+      } else {
+        document.getElementById('studentId').classList.remove('error');
+      }
+
+      if (hasError) {
+        showToast('⚠️', 'Please fill in all required fields');
+        setTimeout(function() {
+          document.getElementById('studentName').classList.remove('error');
+          document.getElementById('studentId').classList.remove('error');
+        }, 2000);
+        return;
+      }
+
+      if (compressedImages.length !== REQUIRED_IMAGES) {
+        showToast('⚠️', 'Exactly ' + REQUIRED_IMAGES + ' images are required — you have ' + compressedImages.length);
+        return;
+      }
+
+      setLoading(true);
+
+      var payload = {
+        name: name,
+        id: id,
+        dept: dept,
+        year: year,
+        images: compressedImages
+      };
+
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.success) {
+            document.getElementById('trackerNumber').textContent = result.trackerId;
+            document.getElementById('formView').classList.add('hidden');
+            document.querySelector('.progress-section').classList.add('hidden');
+            document.getElementById('successView').classList.add('active');
+          } else {
+            showToast('❌', 'Error: ' + (result.error || 'Please try again'));
+            setLoading(false);
+          }
+        })
+        .withFailureHandler(function(err) {
+          showToast('❌', 'Connection error: ' + err.message);
+          setLoading(false);
+        })
+        .processSubmission(payload);
+    }
+
+    function resetForm() {
+      compressedImages = [];
+      document.getElementById('studentName').value = '';
+      document.getElementById('studentId').value = '';
+      previewGrid.innerHTML = '';
+      updateUploadZone();
+      updateImageCounter();
+      updateProgress();
+      document.getElementById('successView').classList.remove('active');
+      document.querySelector('.progress-section').classList.remove('hidden');
+      document.getElementById('formView').classList.remove('hidden');
+      setLoading(false);
+    }
+
+    renderPreviews();
+    updateImageCounter();
+    updateProgress();
+  </script>
+</body>
+</html>
